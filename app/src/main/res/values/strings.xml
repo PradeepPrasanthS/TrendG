@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TrendG</string>
+    <string name="welcome_image">Welcome image</string>
+    <string name="title_trending_repositories">Trending Repositories</string>
+</resources>
