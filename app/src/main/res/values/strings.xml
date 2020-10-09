@@ -2,4 +2,10 @@
     <string name="app_name">TrendG</string>
     <string name="welcome_image">Welcome image</string>
     <string name="title_trending_repositories">Trending Repositories</string>
+    <string name="title_search_repositories">Search Repositories</string>
+    <string name="placeholder_repo_owner">square</string>
+    <string name="placeholder_repo_name">bionic</string>
+    <string name="placeholder_repo_description">A Python framework for data science</string>
+    <string name="placeholder_repo_language">Python</string>
+    <string name="placeholder_repo_stars">46</string>
 </resources>
