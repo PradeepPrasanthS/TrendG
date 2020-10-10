@@ -6,12 +6,19 @@
     android:orientation="vertical"
     tools:context=".HomeActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:background="@color/colorPrimary"
-        android:id="@+id/trendingGitList"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeToRefresh"
         android:layout_width="match_parent"
-        android:visibility="visible"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/trendingGitList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:visibility="gone" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
         android:id="@+id/noInternetLayout"

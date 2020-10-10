@@ -12,6 +12,6 @@ interface ApiInterface {
         @Query("language") language: String,
         @Query("since") since: String,
         @Query("spoken_language_code") spoken_language_code: String
-    ): Call<List<RepositoryModel>>
+    ): Call<ArrayList<RepositoryModel>>
 
 }

@@ -6,18 +6,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pradeep.trendg.api.RepositoryModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TrendingGitListAdapter(
-    private val repository: List<RepositoryModel>,
+    private val repository: ArrayList<RepositoryModel>,
     private val application: Application
-) :
-    RecyclerView.Adapter<TrendingGitListAdapter.TrendingGitListHolder>() {
+) : RecyclerView.Adapter<TrendingGitListAdapter.TrendingGitListHolder>(), Filterable {
+
+    val allRepository = repository
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -80,5 +85,35 @@ class TrendingGitListAdapter(
         }
 
 
+    }
+
+    override fun getFilter(): Filter {
+        return repositoryFilter
+    }
+
+    private val repositoryFilter: Filter = object : Filter() {
+        override fun performFiltering(constraint: CharSequence): FilterResults {
+            val filteredList: MutableList<RepositoryModel> = ArrayList()
+            if (constraint.isEmpty()) {
+                filteredList.addAll(allRepository)
+            } else {
+                val filterPattern =
+                    constraint.toString().toLowerCase(Locale.ROOT).trim { it <= ' ' }
+                for (item in repository) {
+                    if (item.name.toLowerCase(Locale.ROOT).contains(filterPattern)) {
+                        filteredList.add(item)
+                    }
+                }
+            }
+            val results = FilterResults()
+            results.values = filteredList
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence, results: FilterResults) {
+            repository.clear()
+            repository.addAll(results.values as Collection<RepositoryModel>)
+            notifyDataSetChanged()
+        }
     }
 }
