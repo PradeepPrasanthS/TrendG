@@ -1,4 +1,4 @@
-package com.pradeep.trendg
+package com.pradeep.trendg.adapter
 
 import android.app.Application
 import android.graphics.Color
@@ -13,12 +13,13 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.pradeep.trendg.api.RepositoryModel
+import com.pradeep.trendg.R
+import com.pradeep.trendg.data.RepositoryModel
 import java.util.*
 import kotlin.collections.ArrayList
 
 class TrendingGitListAdapter(
-    private val repository: ArrayList<RepositoryModel>,
+    private var repository: List<RepositoryModel>,
     private val application: Application
 ) : RecyclerView.Adapter<TrendingGitListAdapter.TrendingGitListHolder>(), Filterable {
 
@@ -110,9 +111,10 @@ class TrendingGitListAdapter(
             return results
         }
 
+        @Suppress("UNCHECKED_CAST")
         override fun publishResults(constraint: CharSequence, results: FilterResults) {
-            repository.clear()
-            repository.addAll(results.values as Collection<RepositoryModel>)
+            repository = emptyList()
+            repository = results.values as List<RepositoryModel>
             notifyDataSetChanged()
         }
     }

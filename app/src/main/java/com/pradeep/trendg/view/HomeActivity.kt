@@ -1,5 +1,6 @@
-package com.pradeep.trendg
+package com.pradeep.trendg.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -7,17 +8,22 @@ import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.pradeep.trendg.utilities.Utilities
+import com.pradeep.trendg.R
+import com.pradeep.trendg.adapter.TrendingGitListAdapter
+import com.pradeep.trendg.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var adapter: TrendingGitListAdapter
+    private lateinit var context: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        context = this
 
         supportActionBar?.let {
             it.title = getString(R.string.title_trending_repositories)
@@ -36,24 +42,18 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         }
 
         swipeToRefresh.setOnRefreshListener {
-            init()
+            viewModel.refreshData()
             swipeToRefresh.isRefreshing = false
         }
     }
 
     private fun init() {
-        if (Utilities().isInternetAvailable(this)) {
-            progressLoader.visibility = View.VISIBLE
-            trendingGitList.visibility = View.VISIBLE
-            noInternetLayout.visibility = View.GONE
-            viewModel.getTrendingGit(this).observe(this, { trendingGit ->
-                adapter = TrendingGitListAdapter(trendingGit, application)
-                trendingGitList.adapter = adapter
-            })
-        } else {
-            trendingGitList.visibility = View.GONE
-            noInternetLayout.visibility = View.VISIBLE
-        }
+        trendingGitList.visibility = View.VISIBLE
+        noInternetLayout.visibility = View.GONE
+        viewModel.repositoryData.observe(this, { trendingGit ->
+            adapter = TrendingGitListAdapter(trendingGit, application)
+            trendingGitList.adapter = adapter
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
