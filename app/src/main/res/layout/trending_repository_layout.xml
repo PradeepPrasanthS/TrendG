@@ -17,58 +17,80 @@
             android:layout_marginEnd="12dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/repo_owner_name"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:drawablePadding="5dp"
                 android:gravity="center_vertical"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="12sp"
-                tools:drawableStart="@drawable/ic_placeholder_image"
-                tools:text="@string/placeholder_repo_owner" />
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:contentDescription="@string/avatar"
+                    android:src="@drawable/ic_placeholder_image" />
+
+                <TextView
+                    android:id="@+id/repo_owner_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/placeholder_repo_owner"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/repo_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="5dp"
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                tools:text="@string/placeholder_repo_name" />
+                android:text="@string/placeholder_repo_name" />
 
             <TextView
                 android:id="@+id/repo_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="5dp"
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                tools:text="@string/placeholder_repo_description" />
+                android:text="@string/placeholder_repo_description" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/language_color"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:contentDescription="@string/language_color"
+                    android:src="@drawable/language_color" />
 
                 <TextView
                     android:id="@+id/repo_language"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:drawablePadding="5dp"
                     android:gravity="center_vertical"
+                    android:layout_marginStart="5dp"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="12sp"
-                    tools:drawableStart="@drawable/ic_placeholder_image"
-                    tools:text="@string/placeholder_repo_name" />
+                    android:text="@string/placeholder_repo_language" />
 
                 <View
                     android:layout_width="0dp"
@@ -79,14 +101,13 @@
                     android:id="@+id/repo_stars"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     android:drawableStart="@drawable/ic_rating_star"
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="12sp"
                     tools:ignore="UseCompatTextViewDrawableXml"
-                    tools:text="@string/placeholder_repo_stars" />
+                    android:text="@string/placeholder_repo_stars" />
 
             </LinearLayout>
 

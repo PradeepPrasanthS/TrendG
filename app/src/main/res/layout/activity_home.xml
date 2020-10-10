@@ -8,7 +8,7 @@
     tools:context=".HomeActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/trending_git_list"
+        android:id="@+id/trendingGitList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
