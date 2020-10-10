@@ -2,9 +2,11 @@ package com.pradeep.trendg
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.pradeep.trendg.utilities.Utilities
 import kotlinx.android.synthetic.main.activity_home.*
 
 
@@ -27,9 +29,29 @@ class HomeActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        viewModel.getTrendingGit().observe(this, { trendingGit ->
-            trendingGitList.adapter = TrendingGitListAdapter(trendingGit, application)
-        })
+        if (Utilities().isInternetAvailable(this)) {
+            progressLoader.visibility = View.VISIBLE
+            viewModel.getTrendingGit(this).observe(this, { trendingGit ->
+                trendingGitList.adapter = TrendingGitListAdapter(trendingGit, application)
+            })
+        } else {
+            trendingGitList.visibility = View.GONE
+            noInternetLayout.visibility = View.VISIBLE
+        }
+
+        tryAgain.setOnClickListener {
+            if (Utilities().isInternetAvailable(this)) {
+                progressLoader.visibility = View.VISIBLE
+                trendingGitList.visibility = View.VISIBLE
+                noInternetLayout.visibility = View.GONE
+                viewModel.getTrendingGit(this).observe(this, { trendingGit ->
+                    trendingGitList.adapter = TrendingGitListAdapter(trendingGit, application)
+                })
+            } else {
+                trendingGitList.visibility = View.GONE
+                noInternetLayout.visibility = View.VISIBLE
+            }
+        }
 
     }
 
