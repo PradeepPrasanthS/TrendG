@@ -76,7 +76,14 @@ class RepositoryRepo(private val application: Application) {
                 }
             })
         } else {
-            repositoryData.postValue(emptyList())
+            CoroutineScope(Dispatchers.IO).launch {
+                val data = repositoryDao.getAll()
+                if (data.isEmpty()) {
+                    repositoryData.postValue(emptyList())
+                } else {
+                    repositoryData.postValue(data)
+                }
+            }
         }
     }
 

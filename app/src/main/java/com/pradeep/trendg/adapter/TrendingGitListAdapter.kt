@@ -2,7 +2,6 @@ package com.pradeep.trendg.adapter
 
 import android.app.Application
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,7 +75,6 @@ class TrendingGitListAdapter(
                 .placeholder(R.drawable.ic_placeholder_image)
                 .into(mAvatar)
             val languageColor = Color.parseColor(repository.languageColor)
-            Log.i("Info", languageColor.toString())
             mLanguageColor.setColorFilter(languageColor, android.graphics.PorterDuff.Mode.MULTIPLY)
             mRepoOwnerName?.text = repository.author
             mRepoName?.text = repository.name
