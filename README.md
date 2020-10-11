@@ -2,7 +2,7 @@
 
 An android application to show the trending GitHub repositories
 
-# Features
+## Features
 
 * Go offline. Since data is store in local using Room database, you don't have to worry about the internet connection to look for your favourite repositories
 
@@ -16,6 +16,6 @@ An android application to show the trending GitHub repositories
 
 
 
-# What's next
+## What's next
 
 Be a contributor and let's build a community together.
