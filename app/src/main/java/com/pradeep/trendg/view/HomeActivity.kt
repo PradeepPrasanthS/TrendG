@@ -2,6 +2,7 @@ package com.pradeep.trendg.view
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -28,10 +29,12 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         init()
 
         tryAgain.setOnClickListener {
-            init()
+            progressLoader.visibility = View.VISIBLE
+            viewModel.refreshData()
         }
 
         swipeToRefresh.setOnRefreshListener {
+            progressLoader.visibility = View.VISIBLE
             viewModel.refreshData()
             swipeToRefresh.isRefreshing = false
         }
@@ -41,10 +44,20 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         val layoutManager = LinearLayoutManager(this)
         trendingGitList.layoutManager = layoutManager
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        progressLoader.visibility = View.VISIBLE
 
         viewModel.repositoryData.observe(this, { trendingGit ->
-            adapter = TrendingGitListAdapter(trendingGit, application)
-            trendingGitList.adapter = adapter
+            if (trendingGit.isEmpty()) {
+                noInternetLayout.visibility = View.VISIBLE
+                trendingGitList.visibility = View.GONE
+                progressLoader.visibility = View.GONE
+            } else {
+                noInternetLayout.visibility = View.GONE
+                trendingGitList.visibility = View.VISIBLE
+                progressLoader.visibility = View.GONE
+                adapter = TrendingGitListAdapter(trendingGit, application)
+                trendingGitList.adapter = adapter
+            }
         })
     }
 

@@ -58,6 +58,7 @@ class RepositoryRepo(private val application: Application) {
                         }
 
                     } else {
+                        repositoryData.postValue(emptyList())
                         Toast.makeText(
                             application, application.getString(R.string.failure_toast_message),
                             Toast.LENGTH_SHORT
@@ -67,12 +68,15 @@ class RepositoryRepo(private val application: Application) {
 
                 override fun onFailure(call: Call<List<RepositoryModel>>, t: Throwable) {
                     Log.d(LOG_TAG, "Response = $t")
+                    repositoryData.postValue(emptyList())
                     Toast.makeText(
                         application, application.getString(R.string.failure_toast_message),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             })
+        } else {
+            repositoryData.postValue(emptyList())
         }
     }
 
