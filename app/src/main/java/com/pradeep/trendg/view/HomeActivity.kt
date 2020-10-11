@@ -27,20 +27,11 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         }
 
         init()
-
-        tryAgain.setOnClickListener {
-            progressLoader.visibility = View.VISIBLE
-            viewModel.refreshData()
-        }
-
-        swipeToRefresh.setOnRefreshListener {
-            progressLoader.visibility = View.VISIBLE
-            viewModel.refreshData()
-            swipeToRefresh.isRefreshing = false
-        }
     }
 
     private fun init() {
+        swipeToRefresh.setColorSchemeResources(R.color.colorAccent)
+
         val layoutManager = LinearLayoutManager(this)
         trendingGitList.layoutManager = layoutManager
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -59,6 +50,18 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 trendingGitList.adapter = adapter
             }
         })
+
+        tryAgain.setOnClickListener {
+            noInternetLayout.visibility = View.GONE
+            progressLoader.visibility = View.VISIBLE
+            viewModel.refreshData()
+        }
+
+        swipeToRefresh.setOnRefreshListener {
+            progressLoader.visibility = View.VISIBLE
+            viewModel.refreshData()
+            swipeToRefresh.isRefreshing = false
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
